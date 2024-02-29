@@ -4,12 +4,7 @@ use Illuminate\Support\Str;
 
 return [
 
-    protected function gate()
-{
-    Gate::define('viewHorizon', function ($user) {
-        return $user->email == 'josh@picksports.app';
-    });
-}
+
 
 
     /*
@@ -218,4 +213,6 @@ return [
             ],
         ],
     ],
+
 ];
+
