@@ -28,6 +28,8 @@ class DispatchScrapeNflScores extends Command
                         'wk' => $wk,
                     ];
 
+
+
                     // Correctly dispatch the job
                     ScrapeNflScores::dispatch($configuration);
 
@@ -36,5 +38,7 @@ class DispatchScrapeNflScores extends Command
             }
         }
     }
+
+
 
 }

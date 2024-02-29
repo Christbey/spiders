@@ -36,7 +36,10 @@ class ScrapeNflScores implements ShouldQueue
 
         try {
             $url = $this->buildUrl($configuration);
-            $response = $client->request('GET', $url, ['headers' => $headers]);
+            $response = $client->request('GET', $url, [
+                'headers' => $headers,
+                'proxy' => '143.110.232.177:80', // Set the proxy server
+            ]);
             $html = (string)$response->getBody();
             $crawler = new Crawler($html);
 
@@ -47,14 +50,11 @@ class ScrapeNflScores implements ShouldQueue
             \Log::info('Scraping completed successfully.', ['configuration' => $this->configuration]);
 
         } catch (\Exception $e) {
-            // Logging the error to easily track issues through log files
             \Log::error("An error occurred while scraping NFL scores: {$e->getMessage()}", ['configuration' => $this->configuration]);
-
-            // Consider re-throwing the exception to let Laravel's exception handler deal with it
-            // or handling it as needed based on your application's requirements
             throw $e;
         }
     }
+
 
     private function getTeamMap(): array
     {
@@ -173,9 +173,7 @@ class ScrapeNflScores implements ShouldQueue
             'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
             'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
             'Accept-Language' => 'en-US,en;q=0.5',
-            'Accept-Encoding' => 'gzip, deflate, br',
-            'Connection' => 'keep-alive',
-            'Cache-Control' => 'max-age=0',
+
         ];
 
     }
