@@ -26,3 +26,13 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+use App\Http\Controllers\TournamentController;
+
+// Display form
+Route::get('/tournament/picks', [TournamentController::class, 'showPicksForm'])->name('tournament.showPicksForm');
+
+// Store picks
+Route::post('/tournament/picks', [TournamentController::class, 'storePicks'])->name('tournament.storePicks');
+
+Route::get('tournament/handleRoundAndRegion', [TournamentController::class, 'handleRoundAndRegion'])->name('tournament.handleRoundAndRegion');

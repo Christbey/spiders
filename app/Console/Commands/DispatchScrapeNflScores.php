@@ -15,9 +15,9 @@ class DispatchScrapeNflScores extends Command
      */
     public function handle()
     {
-        $types = ['reg', 'pre', 'post'];
-        $wks = range(3, 3);
-        $years = range(1970, 1970);
+        $types = ['reg'];
+        $wks = range(1, 16);
+        $years = range(1979, 1999);
 
         foreach ($years as $year) {
             foreach ($types as $type) {
@@ -27,13 +27,11 @@ class DispatchScrapeNflScores extends Command
                         'type' => $type,
                         'wk' => $wk,
                     ];
-
-
-
                     // Correctly dispatch the job
                     ScrapeNflScores::dispatch($configuration);
-
                     $this->info("Dispatched ScrapeNflScores job for year: {$year}, type: {$type}, wk: {$wk}.");
+                    sleep(5);
+
                 }
             }
         }
